@@ -1,0 +1,6 @@
+entries = filter_map (OS.args) parse
+
+Iterator.choose 2 entries
+|> filter \(a, b). a + b == 2020
+|> first
+|> map \(a, b). print "${a} * ${b} = ${a * b}"
