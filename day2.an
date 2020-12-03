@@ -1,0 +1,3 @@
+count <| filter (File.open "input.txt") \line.
+    (start, end, ch, password: string) = line.parse_fmt "{}-{} {}: {}"
+    (filter password (_ == ch) |> count) in start .. end + 1

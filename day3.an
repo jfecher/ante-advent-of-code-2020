@@ -1,0 +1,16 @@
+day3_imperative (file: File) =
+    column = mut 0
+    trees = mut 0
+
+    for line in file do
+        if line#column == '#' then
+            trees += 1
+
+        column := (column + 3) % len line
+
+    trees
+
+day3_functional (file: File) =
+    enumerate file
+    |> filter \(i, line). line#(i * 3 % len line) == '#'
+    |> count
