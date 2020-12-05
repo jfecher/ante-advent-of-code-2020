@@ -1,0 +1,22 @@
+day4 (input: String) -> usz =
+    len (passports_of input)
+
+type Passport is HashMap String String
+
+passports_of (input: String) -> Vec Passport =
+    lines input
+    |> group_by is_empty
+    |> filter \lines. not is_empty (lines#0)
+    |> map (join _ " ")
+    |> filter_map passport_of
+
+passport_of (line: String) -> Maybe Passport =
+    passport: Passport = split line " "
+        |> map (split _ ":")
+        |> map \items. (items#0, items#1)
+        |> collect
+
+    required_items = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+
+    if all required_items (_ in keys passport) then Some passport
+    else None
