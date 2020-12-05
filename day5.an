@@ -1,0 +1,34 @@
+day5 (input: String) -> usz =
+    map (lines input) seat_id |> max |> unwrap
+
+seat_id line =
+    row line * 8 + column line
+
+row line =
+    substring line 0 8
+    |> map (_ == 'B')
+    |> binary_search
+
+column line =
+    substring line 8 (len line)
+    |> map (_ == 'R')
+    |> binary_search
+
+// "true" in this Vec means take the right half, otherwise take the left half
+binary_search directions =
+    if is_empty directions then 0
+    else
+        elem = last directions |> unwrap |> cast
+        rest = slice directions 0 (len directions - 1)
+        elem + binary_search remaining * 2
+
+
+
+
+// Alternate solution:
+day5_alternate (input: String) -> usz =
+    lines input |> map to_number |> max |> unwrap
+
+to_number line =
+    map line (_ in ['B', 'R'])
+    |> u64.parse_base 2
