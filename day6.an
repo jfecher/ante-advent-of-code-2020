@@ -1,0 +1,8 @@
+day6 (lines: String) =
+    split lines "\n\n"
+    |> map (replace _ "\n" "")
+    |> map count_unique
+    |> sum
+
+count_unique line =
+    sort line |> dedup |> len
